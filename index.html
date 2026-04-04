@@ -3,89 +3,94 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Психологічний Захист | Igor's Project</title>
+    <title>Психологічний Захист | Igor Prais 2026</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
     
     <style>
         :root {
             --bg: #050510;
-            --accent: #2dd4bf; /* М'який бірюзовий для спокою */
-            --p: #818cf8; /* Лавандовий */
-            --glass: rgba(255, 255, 255, 0.02);
-            --border: rgba(255, 255, 255, 0.08);
+            --accent: #2dd4bf; 
+            --p: #818cf8; 
+            --glass: rgba(255, 255, 255, 0.03);
+            --border: rgba(255, 255, 255, 0.1);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         html { scroll-behavior: smooth; scroll-snap-type: y mandatory; background: var(--bg); }
         body { font-family: 'Plus Jakarta Sans', sans-serif; color: #fff; overflow-x: hidden; }
 
-        /* Анімований фон з ефектом "дихання" */
         .aura-bg {
             position: fixed; inset: 0; z-index: -1;
-            background: radial-gradient(circle at 20% 30%, #1e1b4b 0%, transparent 40%),
-                        radial-gradient(circle at 80% 70%, #134e4a 0%, transparent 40%);
-            animation: pulseBg 10s infinite alternate;
+            background: radial-gradient(circle at 15% 15%, #1e1b4b 0%, transparent 35%),
+                        radial-gradient(circle at 85% 85%, #134e4a 0%, transparent 35%);
+            opacity: 0.6;
         }
-        @keyframes pulseBg { from { opacity: 0.5; } to { opacity: 0.8; } }
 
+        /* Оновлений Хедер: inline-flex прибирає порожнечу праворуч */
         nav {
-            position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
-            z-index: 1000; background: rgba(5, 5, 16, 0.8); backdrop-filter: blur(15px);
-            border: 1px solid var(--border); border-radius: 100px; padding: 5px; display: flex;
+            position: fixed; top: 15px; left: 50%; transform: translateX(-50%);
+            z-index: 1000; background: rgba(5, 5, 16, 0.85); backdrop-filter: blur(12px);
+            border: 1px solid var(--border); border-radius: 100px; padding: 4px;
+            display: inline-flex; align-items: center; justify-content: center;
+            width: auto; max-width: 95%; overflow-x: auto; scrollbar-width: none;
         }
+        nav::-webkit-scrollbar { display: none; }
         nav a {
-            color: #94a3b8; text-decoration: none; font-size: 10px; font-weight: 700;
-            padding: 10px 18px; border-radius: 100px; transition: 0.4s; text-transform: uppercase;
+            text-decoration: none; color: #64748b; font-size: 10px; font-weight: 800;
+            padding: 10px 18px; border-radius: 100px; transition: 0.3s; 
+            text-transform: uppercase; white-space: nowrap; flex-shrink: 0;
         }
-        nav a.active { background: #fff; color: #000; }
+        nav a.active { background: #fff; color: #000; box-shadow: 0 0 15px rgba(255,255,255,0.2); }
 
         section {
-            height: 100vh; display: flex; align-items: center; justify-content: center;
-            scroll-snap-align: center; padding: 20px; padding-top: 80px;
+            height: 100vh; height: 100dvh; display: flex; align-items: center; justify-content: center;
+            scroll-snap-align: center; padding: 20px;
         }
 
         .pane {
-            width: 100%; max-width: 1100px; height: 80vh;
+            width: 100%; max-width: 1100px; height: 85vh; height: 85dvh;
             background: var(--glass); border: 1px solid var(--border); border-radius: 40px;
-            padding: 50px; position: relative; backdrop-filter: blur(20px);
-            opacity: 0; transform: translateY(30px); transition: 1s cubic-bezier(0.16, 1, 0.3, 1);
+            padding: 40px; position: relative; backdrop-filter: blur(10px);
             display: flex; flex-direction: column; align-items: center; justify-content: center;
+            opacity: 0; transform: translateY(30px); transition: 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            overflow-y: auto; scrollbar-width: none;
         }
+        .pane::-webkit-scrollbar { display: none; }
         .pane.visible { opacity: 1; transform: translateY(0); }
 
-        /* Схематичні гілки */
-        .node-center {
-            background: var(--accent); color: #000; padding: 15px 35px;
-            border-radius: 100px; font-weight: 800; text-transform: uppercase;
-            box-shadow: 0 0 30px rgba(45, 212, 191, 0.3); z-index: 5;
+        .hero-title { font-family: 'Space Grotesk', sans-serif; font-size: clamp(2.2rem, 8vw, 4.5rem); line-height: 0.9; text-align: center; margin-bottom: 20px; }
+        .hero-sub { color: var(--accent); text-transform: uppercase; letter-spacing: 4px; font-weight: 800; font-size: 0.75rem; margin-bottom: 15px; }
+
+        .node-main { 
+            background: var(--accent); color: #000; padding: 12px 25px; border-radius: 15px; 
+            font-weight: 800; margin-bottom: 30px; text-align: center; text-transform: uppercase;
+            font-size: 0.9rem; letter-spacing: 1px; flex-shrink: 0;
         }
 
-        .branches { display: flex; width: 100%; justify-content: space-between; margin-top: 50px; position: relative; }
-        .line-v { position: absolute; top: -50px; left: 50%; width: 1px; height: 50px; background: var(--border); }
-        .line-h { position: absolute; top: 0; left: 25%; right: 25%; height: 1px; background: var(--border); }
+        .branch-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; width: 100%; }
 
-        .card {
-            width: 48%; background: rgba(255,255,255,0.03); border: 1px solid var(--border);
-            padding: 25px; border-radius: 25px; transition: 0.5s;
+        .side-card {
+            background: rgba(255,255,255,0.02); border: 1px solid var(--border);
+            padding: 25px; border-radius: 25px; transition: 0.4s;
         }
-        .card:hover { border-color: var(--accent); transform: translateY(-5px); background: rgba(45, 212, 191, 0.05); }
+        .side-card:hover { border-color: var(--accent); background: rgba(45, 212, 191, 0.05); }
+        .card-tag { font-size: 0.7rem; color: var(--accent); font-weight: 800; margin-bottom: 10px; display: block; }
+        .side-card h3 { font-size: 1.2rem; margin-bottom: 10px; }
+        .side-card p { font-size: 0.85rem; color: #94a3b8; line-height: 1.5; }
 
-        h1 { font-family: 'Space Grotesk', sans-serif; font-size: clamp(2.5rem, 8vw, 5rem); text-align: center; line-height: 0.9; }
-        h2 { font-family: 'Space Grotesk', sans-serif; font-size: 2rem; margin-bottom: 20px; color: var(--accent); }
-
-        .tag { font-size: 0.7rem; letter-spacing: 3px; color: var(--p); font-weight: 800; margin-bottom: 15px; display: block; }
-
-        /* Механізми - Grid */
-        .mech-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; width: 100%; margin-top: 20px; }
-        .mech-item { background: var(--glass); border: 1px solid var(--border); padding: 15px; border-radius: 15px; text-align: center; font-size: 0.85rem; }
-        .mech-item b { color: var(--accent); display: block; margin-bottom: 5px; }
+        .mech-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; width: 100%; }
+        .mech-item { 
+            background: var(--glass); border: 1px solid var(--border); 
+            padding: 15px; border-radius: 20px; text-align: left;
+        }
+        .mech-item b { color: var(--accent); display: block; margin-bottom: 5px; font-size: 0.9rem; }
+        .mech-item p { font-size: 0.8rem; color: #94a3b8; }
 
         @media (max-width: 768px) {
-            .pane { height: auto; padding: 30px 20px; }
-            .branches { flex-direction: column; gap: 20px; }
-            .card { width: 100%; }
-            .mech-grid { grid-template-columns: 1fr; }
-            .line-h, .line-v { display: none; }
+            .branch-grid, .mech-grid { grid-template-columns: 1fr; }
+            .pane { padding: 30px 20px; justify-content: flex-start; }
+            .hero-title { font-size: 2.5rem; margin-top: 20px; }
+            .node-main { font-size: 0.8rem; margin-bottom: 20px; }
         }
     </style>
 </head>
@@ -93,39 +98,38 @@
 
 <div class="aura-bg"></div>
 
-<nav>
-    <a href="#hero" class="active">Вступ</a>
+<nav id="navbar">
+    <a href="#intro" class="active">Вступ</a>
     <a href="#essence">Сутність</a>
     <a href="#mechanisms">Механізми</a>
-    <a href="#practice">Практика</a>
+    <a href="#methods">Методи</a>
     <a href="#safety">Безпека</a>
+    <a href="#final">Висновок</a>
 </nav>
 
-<section id="hero">
+<section id="intro">
     <div class="pane visible">
-        <span class="tag">2026</span>
-        <h1><span style="color:var(--accent)">Психологічний захист</span></h1>
-        <p style="max-width: 600px; text-align: center; color: #94a3b8; margin-top: 25px; line-height: 1.6;">
-            Система внутрішніх механізмів, які допомагають зберігати психічну рівновагу та адаптуватися до складних умов сучасного світу.
+        <span class="hero-sub">Ihor Prais Project 2026</span>
+        <h1 class="hero-title">Психологічний <br><span style="color:var(--accent)">Захист</span></h1>
+        <p style="max-width: 650px; text-align: center; color: #94a3b8; line-height: 1.6; margin-top: 25px;">
+            Безпека людини визначається не лише фізичними факторами. Психологічний захист — це внутрішній щит, який дозволяє зберігати рівновагу в умовах інформаційних атак та стресу.
         </p>
     </div>
 </section>
 
 <section id="essence">
     <div class="pane">
-        <div class="node-center">Сутність захисту</div>
-        <div class="branches">
-            <div class="line-v"></div>
-            <div class="line-h"></div>
-            <div class="card">
-                <span class="tag">ФУНКЦІЯ 01</span>
-                <h3>Бар'єр</h3>
-                <p style="font-size: 0.9rem; color: #94a3b8; margin-top: 10px;">Захищає психіку від руйнівного впливу негативних емоцій та інформаційних атак.</p>
+        <div class="node-main">1. Сутність захисту</div>
+        <div class="branch-grid">
+            <div class="side-card">
+                <span class="card-tag">СТАБІЛЬНІСТЬ</span>
+                <h3>Внутрішня опора</h3>
+                <p>Сукупність дій, спрямованих на збереження стабільності особистості проти стресу та тривоги.</p>
             </div>
-            <div class="card">
-                <span class="tag">ФУНКЦІЯ 02</span>
-                <h3>Адаптація</h3>
-                <p style="font-size: 0.9rem; color: #94a3b8; margin-top: 10px;">Забезпечує стійкість у нових умовах та підтримує працездатність особистості.</p>
+            <div class="side-card">
+                <span class="card-tag">ФУНКЦІЯ</span>
+                <h3>Бар'єр та Адаптація</h3>
+                <p>Виконує роль фільтра між психікою та загрозами, забезпечуючи працездатність у нових умовах.</p>
             </div>
         </div>
     </div>
@@ -133,56 +137,56 @@
 
 <section id="mechanisms">
     <div class="pane">
-        <h2>Основні механізми</h2>
+        <div class="node-main" style="background: var(--p); color: #fff;">2. Основні механізми</div>
         <div class="mech-grid">
-            <div class="mech-item"><b>Раціоналізація</b> Логічне пояснення подій для зменшення тиску.</div>
-            <div class="mech-item"><b>Заперечення</b> Відмова визнавати існування загрози.</div>
-            <div class="mech-item"><b>Проекція</b> Приписування своїх почуттів іншим.</div>
-            <div class="mech-item"><b>Компенсація</b> Розвиток сил для подолання слабкостей.</div>
-            <div class="mech-item"><b>Сублімація</b> Перетворення емоцій у творчість.</div>
-            <div class="mech-item" style="border-color: var(--accent);"><b>Усвідомлення</b> Можливість контролювати ці процеси.</div>
+            <div class="mech-item"><b>Раціоналізація</b><p>Пояснення подій логікою для зменшення тиску.</p></div>
+            <div class="mech-item"><b>Заперечення</b><p>Відмова визнавати існування проблеми чи загрози.</p></div>
+            <div class="mech-item"><b>Проекція</b><p>Приписування власних почуттів іншим людям.</p></div>
+            <div class="mech-item"><b>Компенсація</b><p>Розвиток сильних сторін для подолання слабких.</p></div>
+            <div class="mech-item"><b>Сублімація</b><p>Перетворення негативу у творчість чи роботу.</p></div>
+            <div class="mech-item" style="border-color: var(--accent);"><b>Усвідомлення</b><p>Контроль над автоматичними реакціями психіки.</p></div>
         </div>
     </div>
 </section>
 
-<section id="practice">
+<section id="methods">
     <div class="pane">
-        <div class="node-center" style="background: var(--p); color: #fff;">Практичні методи</div>
-        <div class="branches">
-            <div class="line-v"></div>
-            <div class="line-h"></div>
-            <div class="card">
-                <h3>Саморегуляція</h3>
-                <ul style="font-size: 0.85rem; color: #94a3b8; margin-top: 10px; list-style: none;">
-                    <li>• Дихальні техніки</li>
-                    <li>• Медіація та вправи</li>
-                    <li>• Позитивне мислення</li>
-                </ul>
+        <div class="node-main" style="background: #fff; color: #000">3. Практичні методи</div>
+        <div class="branch-grid">
+            <div class="side-card">
+                <span class="card-tag">САМОКОНТРОЛЬ</span>
+                <h3>Регуляція стану</h3>
+                <p>• Техніки дихання та медитація<br>• Фізичні вправи<br>• Позитивне мислення</p>
             </div>
-            <div class="card">
-                <h3>Гігієна та Соціум</h3>
-                <ul style="font-size: 0.85rem; color: #94a3b8; margin-top: 10px; list-style: none;">
-                    <li>• Обмеження негативних новин</li>
-                    <li>• Соціальна підтримка родини</li>
-                    <li>• Професійна допомога</li>
-                </ul>
+            <div class="side-card">
+                <span class="card-tag">ГІГІЄНА</span>
+                <h3>Зовнішній вплив</h3>
+                <p>• Інформаційна гігієна (фільтр новин)<br>• Соціальна підтримка родини<br>• Допомога психолога</p>
             </div>
         </div>
     </div>
 </section>
 
 <section id="safety">
-    <div class="pane" style="text-align: center;">
-        <span class="tag">СФЕРА БЕЗПЕКИ</span>
-        <h2>Психологічна стійкість</h2>
-        <div style="display: flex; gap: 20px; margin-top: 30px; flex-wrap: wrap; justify-content: center;">
-            <div class="mech-item" style="width: 250px;">🛡️ <b>Цивільний захист</b> Уникнення паніки в НС.</div>
-            <div class="mech-item" style="width: 250px;">🎖️ <b>Військова сфера</b> Стійкість до інфо-атак.</div>
-            <div class="mech-item" style="width: 250px;">👨‍⚕️ <b>Професійний рівень</b> Дії в критичних умовах.</div>
+    <div class="pane">
+        <div class="node-main" style="background: #ef4444; color: #fff;">4. Сфера безпеки</div>
+        <div class="mech-grid">
+            <div class="mech-item"><b>Екстремальні умови</b><p>Уникнення паніки та прийняття зважених рішень у НС.</p></div>
+            <div class="mech-item"><b>Військова сфера</b><p>Стійкість до інформаційних атак та підтримка духу.</p></div>
+            <div class="mech-item"><b>Професійний рівень</b><p>Ефективна дія рятувальників та медиків у критичних умовах.</p></div>
         </div>
-        <p style="margin-top: 40px; font-size: 0.7rem; opacity: 0.5; letter-spacing: 2px;">
-            IGOR PRAIS • ДЕРЖАВНИЙ ПОДАТКОВИЙ УНІВЕРСИТЕТ • 2026
+    </div>
+</section>
+
+<section id="final">
+    <div class="pane" style="text-align: center; border-color: var(--accent);">
+        <h2 style="color:var(--accent); font-family:'Space Grotesk'; font-size: 3rem;">ВИСНОВОК</h2>
+        <p style="max-width: 650px; margin-top: 20px; color: #94a3b8; line-height: 1.6;">
+            Сильна психіка — це запорука не лише індивідуального благополуччя, а й колективної стійкості перед викликами сучасного світу. Психологічний захист є невід'ємною складовою загальної безпеки кожної людини.
         </p>
+        <div style="margin-top: 50px; font-size: 0.7rem; letter-spacing: 3px; opacity: 0.5;">
+            ДЕРЖАВНИЙ ПОДАТКОВИЙ УНІВЕРСИТЕТ • ІРПІНЬ • 2026
+        </div>
     </div>
 </section>
 
@@ -193,11 +197,15 @@
                 entry.target.querySelector('.pane').classList.add('visible');
                 document.querySelectorAll('nav a').forEach(a => {
                     a.classList.remove('active');
-                    if(a.getAttribute('href') === '#' + entry.target.id) a.classList.add('active');
+                    if(a.getAttribute('href') === '#' + entry.target.id) {
+                        a.classList.add('active');
+                        // Авто-скрол хедера для мобілок
+                        a.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+                    }
                 });
             }
         });
-    }, { threshold: 0.4 });
+    }, { threshold: 0.5 });
 
     document.querySelectorAll('section').forEach(s => observer.observe(s));
 </script>
